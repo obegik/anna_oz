@@ -14,4 +14,5 @@ Possibility:
 
 We can test the first possibility by plotting the line plots using mean values in windows
 
-We need something like this
+
+[We need something like this](https://github.com/obegik/anna_oz/blob/master/images/lineplot_mean.png)
