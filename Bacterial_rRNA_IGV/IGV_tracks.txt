@@ -1,0 +1,5 @@
+For each file:
+molecule_position(s)_modification(_freq_treshold used if not 0.1).png
+
+Examples:
+16S_1407_m5C.png                 16S_1518_1519_m26A_Freq0.05.png
