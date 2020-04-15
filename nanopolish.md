@@ -31,7 +31,7 @@ python3 sliding_window_nanopolish_processedinput.py input -w 15
 required: python3
 
 ```bash
-python3 sliding_window_nanopolish_rawinput.py input -w 15
+python -f sliding_window_nanopolish_rawinput.py input -w 15 > output
 #example input x.reads-ref.eventalign.txt
 ```
 
