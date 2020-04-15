@@ -16,3 +16,5 @@ We can test the first possibility by plotting the line plots using mean values i
 
 
 [We need something like this](https://github.com/obegik/anna_oz/blob/master/images/lineplot_mean.png)
+
+If the line plot shows the fluctuation ONLY in the modified positions, it means that its not due to the end of transcript. 
