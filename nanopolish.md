@@ -12,7 +12,7 @@ We will use the Nanopolish raw output to produce three types of files
 required: python3
 
 ```bash
-python3 perread.py input
+python3 perpos.py input
 #example input x.reads-ref.eventalign.txt
 ```
 
