@@ -32,7 +32,8 @@ def mean_perpos (sliced_data, output):
     
     #Calculate mean per positions:
     print('Analysing data - position level')
-    mean_perpos = sliced_data.groupby(['contig', 'position','reference_kmer']).agg({'event_level_mean':['mean']}).reset_index()
+    sliced_data['read_name'] = 1
+    mean_perpos = sliced_data.groupby(['contig', 'position','reference_kmer', 'read_name']).agg({'event_level_mean':['mean']}).reset_index()
     #mean_perpos.columns =  mean_perpos.droplevel(-1)
 
     #Output .csv files:
