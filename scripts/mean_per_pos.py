@@ -15,7 +15,7 @@ def parse_input(file, size_chunks):
     for chunk in df_chunk:  
         
         # Perform data filtering: 
-        chunk_filter = chunk.iloc[:,[0,1,2,6]]
+        chunk_filter = chunk.iloc[:,[0,1,2,3,6]]
 
         # Once the data filtering is done, append to list
         chunk_list.append(chunk_filter)
@@ -27,17 +27,28 @@ def parse_input(file, size_chunks):
 
     return raw_data
 
-def mean_perpos (raw_data, output):
+
+def mean_perpos (sliced_data, output):
     
     #Calculate mean per positions:
-    print('Analysing data')
-    mean_perpos = raw_data.groupby(['contig', 'position','reference_kmer']).agg({'event_level_mean':['mean']}).reset_index()
+    print('Analysing data - position level')
+    mean_perpos = sliced_data.groupby(['contig', 'position','reference_kmer']).agg({'event_level_mean':['mean']}).reset_index()
+    #mean_perpos.columns =  mean_perpos.droplevel(-1)
 
     #Output .csv files:
     print('Saving results to: {}_processed_perpos_mean.csv'.format(output))
     mean_perpos.to_csv('{}_processed_perpos_mean.csv'.format(output), sep='\t', index = False)
 
+def mean_perpos_perread (raw_data, output):
 
+    #Calculate mean per positions:
+    print('Analysing data - read level')
+    mean_perpos_perread = raw_data.groupby(['contig', 'position','reference_kmer', 'read_name']).agg({'event_level_mean':['mean']}).reset_index()
+    #mean_perpos_perread.columns =  mean_perpos_perread.droplevel(-1)
+
+    #Output .csv files:
+    print('Saving results to: {}_processed_perpos_perread_mean.csv'.format(output))
+    mean_perpos_perread.to_csv('{}_processed_perpos_perread_mean.csv'.format(output), sep='\t', index = False)
 
 def main():
     parser  = argparse.ArgumentParser(description=desc)
@@ -52,7 +63,8 @@ def main():
     raw_import = parse_input(a.input, a.chunk_size)
 
     #Analysis:
-    mean_perpos(raw_import, a.output)
+    mean_perpos_perread(raw_import, a.output)
+    mean_perpos(raw_import.iloc[:,[0,1,2,4]], a.output)
 
 if __name__=='__main__': 
     main()
