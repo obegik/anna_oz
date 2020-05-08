@@ -8,7 +8,7 @@ import pandas as pd
 
 def parse_input(file, size_chunks):
     
-    df_chunk = pd.read_csv(file, sep='\t', chunksize=size_chunks)
+    df_chunk = pd.read_csv(file, sep='\t', chunksize=size_chunks, compression='gzip', error_bad_lines=False)
     chunk_list = list()
 
     # Process each portion of input file:
