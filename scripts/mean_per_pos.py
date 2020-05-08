@@ -31,25 +31,48 @@ def parse_input(file, size_chunks):
 def mean_perpos (sliced_data, output):
     
     #Calculate mean per positions:
-    print('Analysing data - position level')
+    print('Analysing data - position level - mean')
     sliced_data['read_name'] = 1
     mean_perpos = sliced_data.groupby(['contig', 'position','reference_kmer', 'read_name']).agg({'event_level_mean':['mean']}).reset_index()
     #mean_perpos.columns =  mean_perpos.droplevel(-1)
 
     #Output .csv files:
-    print('Saving results to: {}_processed_perpos_mean.csv'.format(output))
-    mean_perpos.to_csv('{}_processed_perpos_mean.csv'.format(output), sep='\t', index = False)
+    print('Saving results to: {}_processed_perpos_mean.tsv'.format(output))
+    mean_perpos.to_csv('{}_processed_perpos_mean.tsv'.format(output), sep='\t', index = False)
+
+def median_perpos (sliced_data, output):
+    
+    #Calculate mean per positions:
+    print('Analysing data - position level - median')
+    sliced_data['read_name'] = 1
+    median_perpos = sliced_data.groupby(['contig', 'position','reference_kmer', 'read_name']).agg({'event_level_mean':['median']}).reset_index()
+    #median_perpos.columns =  mean_perpos.droplevel(-1)
+
+    #Output .csv files:
+    print('Saving results to: {}_processed_perpos_median.tsv'.format(output))
+    median_perpos.to_csv('{}_processed_perpos_median.tsv'.format(output), sep='\t', index = False)
 
 def mean_perpos_perread (raw_data, output):
 
     #Calculate mean per positions:
-    print('Analysing data - read level')
+    print('Analysing data - read level - mean')
     mean_perpos_perread = raw_data.groupby(['contig', 'position','reference_kmer', 'read_name']).agg({'event_level_mean':['mean']}).reset_index()
     #mean_perpos_perread.columns =  mean_perpos_perread.droplevel(-1)
 
     #Output .csv files:
-    print('Saving results to: {}_processed_perpos_perread_mean.csv'.format(output))
-    mean_perpos_perread.to_csv('{}_processed_perpos_perread_mean.csv'.format(output), sep='\t', index = False)
+    print('Saving results to: {}_processed_perpos_perread_mean.tsv'.format(output))
+    mean_perpos_perread.to_csv('{}_processed_perpos_perread_mean.tsv'.format(output), sep='\t', index = False)
+
+def median_perpos_perread (raw_data, output):
+
+    #Calculate mean per positions:
+    print('Analysing data - read level - median')
+    median_perpos_perread = raw_data.groupby(['contig', 'position','reference_kmer', 'read_name']).agg({'event_level_mean':['median']}).reset_index()
+    #median_perpos_perread.columns =  mean_perpos_perread.droplevel(-1)
+
+    #Output .csv files:
+    print('Saving results to: {}_processed_perpos_perread_median.tsv'.format(output))
+    median_perpos_perread.to_csv('{}_processed_perpos_perread_median.tsv'.format(output), sep='\t', index = False)
 
 def main():
     parser  = argparse.ArgumentParser(description=desc)
@@ -65,7 +88,9 @@ def main():
 
     #Analysis:
     mean_perpos_perread(raw_import, a.output)
+    median_perpos_perread(raw_import, a.output)
     mean_perpos(raw_import.iloc[:,[0,1,2,4]], a.output)
+    median_perpos(raw_import.iloc[:,[0,1,2,4]], a.output)
 
 if __name__=='__main__': 
     main()
