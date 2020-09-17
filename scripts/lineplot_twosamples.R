@@ -30,7 +30,7 @@ colnames(ko_3)<- c("ref", "windown", "kmer", "base", "-7", "-6", "-5", "-4", "-3
 
 ko_final<- melt(ko_3)
 ko_final$reference<-paste(ko_final$ref, ko_final$windown)
-ko_final$Strain<- rep("snR3-KO", nrow(ko_final))
+ko_final$Strain<- rep("CHK-IVT", nrow(ko_final))
 
 
 
@@ -48,11 +48,11 @@ wt_3[,-c(1,2,3,4)] <- data.frame(sapply(wt_3[,-c(1,2,3,4)], function(x) as.numer
 colnames(wt_3)<- c("ref", "windown", "kmer", "base", "-7", "-6", "-5", "-4", "-3", "-2", "-1", "0", "1","2","3","4","5","6" , "7" )
 wt_final<- melt(wt_3)
 wt_final$reference<-paste(wt_final$ref, wt_final$windown)
-wt_final$Strain<- rep("WT", nrow(wt_final))
+wt_final$Strain<- rep("CHK-WT", nrow(wt_final))
 
 
 all_final<- rbind(wt_final, ko_final)
-
+write.csv(all_final, file='all_final_nanopolish.csv')
 
 for (i in seq_along(unique(all_final$reference))) { 
   subs<- subset(all_final, all_final$reference == unique(all_final$reference)[i])

@@ -10,7 +10,7 @@
 
     #Import the data
       #Import the Per position table for Sn3
-      condition1 <- read.delim(cond1, sep=" ")
+      condition1 <- read.delim(cond1, sep="\t")
       #Add 3 nt to each position since Nanopolish output is 0 based and falls behind 2 nts
       condition1$position<- condition1$position+3 
       #Create a column for unique positions
@@ -21,7 +21,7 @@
       colnames(condition1)<- c("contig","position", "kmer","readidx", "condition1_event_level_mean_mean", "pos", "sample")
 
       #Import the Per position table for WT
-      condition2 <- read.delim(cond2, sep=" ")
+      condition2 <- read.delim(cond2, sep="\t")
       #Add 3 nt to each position since Nanopolish output is 0 based and falls behind 2 nts
       condition2$position<- condition2$position+3 
       #Create a column for unique positions
